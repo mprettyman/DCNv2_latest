@@ -16,7 +16,7 @@ find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
 
 # Install the package
 echo "📦 Installing DCNv2..."
-pip install . --nobuild-isolation
+pip install . --no-build-isolation
 
 echo "✅ Installation complete!"
 echo ""
