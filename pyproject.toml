@@ -1,9 +1,6 @@
-[build-system]
-requires = ["setuptools", "wheel", "torch"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "DCNv2"
 version = "0.1.0"
 description = "Deformable Convolutional Networks v2"
-dependencies = ["torch", "numpy"]
+author= "mark prettyman"
+url = "https://github.com/mprettyman/DCNv2_latest"

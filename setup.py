@@ -79,11 +79,6 @@ def get_extensions():
 
 
 setup(
-    name="DCNv2",
-    version=find_version("__init__.py"),
-    author="mark prettyman",
-    url="https://github.com/mprettyman/DCNv2_latest",
-    description="deformable convolutional networks",
     packages=find_packages(),
     ext_modules=get_extensions(),
     cmdclass={"build_ext": BuildExtension},
