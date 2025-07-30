@@ -1,13 +1,39 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
+import codecs
 import glob
 import os
+import re
 
-import torch
-from setuptools import find_packages, setup
-from torch.utils.cpp_extension import CUDA_HOME, CppExtension, CUDAExtension
+try:
+    import torch
+except ImportError:
+    raise ImportError("Pytorch not found. Please install pytorch first.")
 
-requirements = ["torch", "torchvision"]
+from torch.utils.cpp_extension import BuildExtension
+from torch.utils.cpp_extension import CUDA_HOME
+from torch.utils.cpp_extension import CppExtension
+from torch.utils.cpp_extension import CUDAExtension
+
+from setuptools import find_packages
+from setuptools import setup
+
+here = os.path.abspath(os.path.dirname(__file__))
+
+
+def read(*parts):
+    with codecs.open(os.path.join(here, *parts), "r") as fp:
+        return fp.read()
+
+
+def find_version(*file_paths):
+    version_file = read(*file_paths)
+    version_match = re.search(
+        r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M
+    )
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError("Unable to find version string.")
 
 
 def get_extensions():
@@ -17,13 +43,13 @@ def get_extensions():
     main_file = glob.glob(os.path.join(extensions_dir, "*.cpp"))
     source_cpu = glob.glob(os.path.join(extensions_dir, "cpu", "*.cpp"))
     source_cuda = glob.glob(os.path.join(extensions_dir, "cuda", "*.cu"))
+
     os.environ["CC"] = "g++"
     sources = main_file + source_cpu
     extension = CppExtension
     extra_compile_args = {"cxx": []}
     define_macros = []
 
-    
     if torch.cuda.is_available() and CUDA_HOME is not None:
         extension = CUDAExtension
         sources += source_cuda
@@ -53,13 +79,7 @@ def get_extensions():
 
 
 setup(
-    name="DCNv2",
-    version="0.1",
-    author="charlesshang",
-    url="https://github.com/charlesshang/DCNv2",
-    description="deformable convolutional networks",
-    packages=find_packages(exclude=("configs", "tests")),
-    # install_requires=requirements,
+    packages=find_packages(),
     ext_modules=get_extensions(),
-    cmdclass={"build_ext": torch.utils.cpp_extension.BuildExtension},
+    cmdclass={"build_ext": BuildExtension},
 )
