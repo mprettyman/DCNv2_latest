@@ -10,8 +10,49 @@ It's suggested using latest stable pytorch 1.11 to start your project.
 
 ## Install
 
+### Quick Install (Recommended)
+
+For production use:
+```bash
+# Using the provided script
+$ chmod +x install.sh && ./install.sh
+
+# Or manually with pip
+$ pip install .
+```
+
+### Manual Installation
+
+1. Install dependencies:
+```bash
+$ pip install -r requirements.txt
+```
+
+2. Install DCNv2:
+```bash
+$ pip install .     # for production
+```
+
+### Legacy Installation (Deprecated)
+
+The old method still works but is not recommended:
 ```bash
 $ python3 setup.py build develop
+```
+
+## Requirements
+
+- Python >= 3.8
+- PyTorch >= 1.11.0
+- CUDA (optional, for GPU support)
+- C++ compiler (g++)
+
+## Testing
+
+After installation, test your setup:
+```bash
+$ python testcpu.py    # Test CPU version
+$ python testcuda.py   # Test CUDA version (if available)
 ```
 
 ## Updates
