@@ -2,5 +2,5 @@
 name = "DCNv2"
 version = "0.1.0"
 description = "Deformable Convolutional Networks v2"
-author= "mark prettyman"
-url = "https://github.com/mprettyman/DCNv2_latest"
+authors = [{name = "mark prettyman"}]
+urls = {Homepage = "https://github.com/mprettyman/DCNv2_latest"}
