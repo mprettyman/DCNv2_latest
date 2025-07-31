@@ -1,5 +1,7 @@
 import glob
 import os
+import codecs
+import re
 
 try:
     import torch
